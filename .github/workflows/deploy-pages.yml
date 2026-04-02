@@ -1,0 +1,53 @@
+# Déploiement GitHub Pages pour un dépôt dont la racine = ce dossier `site/` (copie du modèle).
+# URL : https://<org>.github.io/<nom-du-depot>/ — le script build-gh-pages.mjs déduit le base path.
+#
+# Réglages : Settings → Pages → Source « GitHub Actions ».
+#
+# Si @orbisite/blocks vient de GitHub Packages : ajoutez .npmrc (voir leo-giraud) et
+#   env GITHUB_PACKAGES_TOKEN: ${{ secrets.GITHUB_TOKEN }} sur l’étape npm ci.
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  packages: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build (VITE_BASE = /${{ github.event.repository.name }}/)
+        run: npm run build:gh
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

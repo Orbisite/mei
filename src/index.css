@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@source "../node_modules/@orbisite/blocks/src/**/*.{js,jsx}";
+
+:root {
+  --color-heading: #fafafa;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  background: radial-gradient(circle at top, #1a1a1a 0%, #0a0a0a 45%, #000000 100%);
+  color: var(--color-heading);
+}

@@ -1,0 +1,30 @@
+{
+  "name": "orbisite-site-aurora",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && node scripts/copy-spa-fallback.mjs",
+    "build:gh": "node scripts/build-gh-pages.mjs",
+    "preview": "vite preview",
+    "deploy": "npm run build:gh && gh-pages -d dist"
+  },
+  "dependencies": {
+    "@mdi/js": "^7.4.47",
+    "@mdi/react": "^1.6.1",
+    "@orbisite/blocks": "file:../../blocks",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.28.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.2.2",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.27",
+    "gh-pages": "^6.3.0",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.2",
+    "vite": "^5.0.0"
+  }
+}
