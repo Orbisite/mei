@@ -3,8 +3,7 @@
 #
 # Réglages : Settings → Pages → Source « GitHub Actions ».
 #
-# Si @orbisite/blocks vient de GitHub Packages : ajoutez .npmrc (voir leo-giraud) et
-#   env GITHUB_PACKAGES_TOKEN: ${{ secrets.GITHUB_TOKEN }} sur l’étape npm ci.
+# @orbisite/blocks : https://github.com/Orbisite/blocks.git#v0.2.3 (sans token npm).
 name: Deploy GitHub Pages
 
 on:
@@ -15,7 +14,6 @@ permissions:
   contents: read
   pages: write
   id-token: write
-  packages: read
 
 concurrency:
   group: pages

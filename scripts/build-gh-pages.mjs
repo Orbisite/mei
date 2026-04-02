@@ -1,9 +1,10 @@
 /**
  * Build pour GitHub Pages (site « projet » : https://org.github.io/<nom-du-depot>/).
- * - En CI : utilise GITHUB_REPOSITORY (fourni par GitHub Actions) pour déduire VITE_BASE.
- * - En local : exporte VITE_BASE=/nom-du-depot/ avant la commande.
+ * - En CI : GITHUB_REPOSITORY → VITE_BASE.
+ * - En local : `orbisite.ghPagesBase` dans package.json, ou variable VITE_BASE=/nom-du-depot/.
  */
 import { execSync } from 'node:child_process'
+import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -16,8 +17,17 @@ if (!base && process.env.GITHUB_REPOSITORY) {
   base = `/${repo}/`
 }
 if (!base) {
+  try {
+    const pkg = JSON.parse(readFileSync(path.join(root, 'package.json'), 'utf8'))
+    base = pkg.orbisite?.ghPagesBase?.trim()
+  } catch {
+    /* ignore */
+  }
+}
+if (!base) {
   console.error(
-    'build-gh-pages: définissez VITE_BASE=/nom-du-repo/ (ex. /mon-site/ pour https://org.github.io/mon-site/).\n' +
+    'build-gh-pages: ajoutez `"orbisite": { "ghPagesBase": "/nom-du-repo/" }` dans package.json,\n' +
+      'ou définissez VITE_BASE=/nom-du-repo/ (ex. /aurora/ pour https://org.github.io/aurora/).\n' +
       'Sous GitHub Actions, GITHUB_REPOSITORY est défini automatiquement.',
   )
   process.exit(1)
