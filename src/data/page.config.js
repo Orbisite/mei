@@ -4,7 +4,7 @@
  * Avec multi-pages (`pages` dans le JSON), l’ordre des blocs peut être surchargé par route via `sections`.
  */
 import { resolveForLocale } from '../utils/localeUtils'
-import { extractContentImages } from '../utils/siteImages'
+import { buildGalleryItemsForLocale, extractContentImages } from '../utils/siteImages'
 
 export const DEFAULT_SECTION_ORDER = [
   'navbar',
@@ -39,7 +39,9 @@ export function buildPageConfig(content, locale = 'fr', onLocaleChange = () => {
   const bento = resolveForLocale(locale, content.bento)
   const pricing = resolveForLocale(locale, content.pricing)
   const testimonials = resolveForLocale(locale, content.testimonials)
+  const gallerySection = resolveForLocale(locale, content.gallery)
   const footer = resolveForLocale(locale, content.footer)
+  const galleryItems = buildGalleryItemsForLocale(content, locale)
 
   const blocks = {
     navbar: () => ({
@@ -68,7 +70,7 @@ export function buildPageConfig(content, locale = 'fr', onLocaleChange = () => {
         subtitle: hero.subtitle,
         ctaText: hero.cta,
         ctaHref: hero.ctaHref ?? '#pricing',
-        variant: 'split',
+        variant: hero.variant ?? 'split',
         color: 'primary',
         imageUrl: images.hero,
         imageAlt: hero.imageAlt,
@@ -124,6 +126,18 @@ export function buildPageConfig(content, locale = 'fr', onLocaleChange = () => {
           ...item,
           avatarUrl: images.testimonialAvatars?.[index],
         })),
+      },
+    }),
+    gallery: () => ({
+      type: 'gallery',
+      props: {
+        sectionId: gallerySection?.sectionId ?? 'galerie',
+        title: gallerySection?.title,
+        subtitle: gallerySection?.subtitle,
+        color: gallerySection?.color ?? 'secondary',
+        columns: gallerySection?.columns ?? 3,
+        imageAspect: gallerySection?.imageAspect ?? 'square',
+        items: galleryItems,
       },
     }),
     footer: () => ({
