@@ -3,7 +3,7 @@
 #
 # Réglages : Settings → Pages → Source « GitHub Actions ».
 #
-# @orbisite/blocks : https://github.com/Orbisite/blocks.git#v0.2.3 (sans token npm).
+# @orbisite/blocks : https://github.com/Orbisite/blocks.git#v0.2.6 (sans token npm).
 name: Deploy GitHub Pages
 
 on:
