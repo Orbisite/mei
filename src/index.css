@@ -2,7 +2,7 @@
 @source "../node_modules/@orbisite/blocks/src/**/*.{js,jsx}";
 
 :root {
-  --color-heading: #fafafa;
+  --color-heading: #1c1917;
 }
 
 * {
@@ -11,13 +11,13 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: #000000;
-  color-scheme: dark;
+  background-color: #ffffff;
+  color-scheme: light;
 }
 
 body {
   margin: 0;
   font-family: Inter, system-ui, -apple-system, sans-serif;
-  background: radial-gradient(circle at top, #1a1a1a 0%, #0a0a0a 45%, #000000 100%);
+  background-color: #ffffff;
   color: var(--color-heading);
 }
