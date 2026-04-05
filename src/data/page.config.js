@@ -86,7 +86,7 @@ export function buildPageConfig(content, locale = 'fr', onLocaleChange = () => {
         sectionId: features.sectionId,
         title: features.title,
         subtitle: features.subtitle,
-        color: 'secondary',
+        color: 'primary',
         items: features.items,
       },
     }),
@@ -110,7 +110,7 @@ export function buildPageConfig(content, locale = 'fr', onLocaleChange = () => {
         sectionId: 'pricing',
         title: pricing.title,
         subtitle: pricing.subtitle,
-        color: 'primary',
+        color: 'secondary',
         highlightedPlan:
           typeof pricing.highlightedPlan === 'number' ? pricing.highlightedPlan : 0,
         plans: pricing.plans.map((plan) => ({
@@ -138,7 +138,7 @@ export function buildPageConfig(content, locale = 'fr', onLocaleChange = () => {
         sectionId: gallerySection?.sectionId ?? 'galerie',
         title: gallerySection?.title,
         subtitle: gallerySection?.subtitle,
-        color: gallerySection?.color ?? 'secondary',
+        color: gallerySection?.color ?? 'primary',
         columns: gallerySection?.columns ?? 3,
         imageAspect: gallerySection?.imageAspect ?? 'square',
         items: galleryItems,
